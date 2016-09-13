@@ -11,16 +11,17 @@ uint64_t rdtsc(){
 
 int main()
 {
-	unsigned eax, ebx, ecx, edx;
+	unsigned eax, ebx, ecx, edx, level;
 	eax = 1; /* processor info and feature bits */
+	level = 1;
   	uint64_t i, f;
     
-    __cpuid(1, eax, ebx, ecx, edx);
+    __cpuid(level, eax, ebx, ecx, edx);
     i = rdtsc();
     
     sleep(10);
     
-    __cpuid(1, eax, ebx, ecx, edx);
+    __cpuid(level, eax, ebx, ecx, edx);
   	f = rdtsc();
     
     printf("%" PRIu64 "\n", (f-i));
