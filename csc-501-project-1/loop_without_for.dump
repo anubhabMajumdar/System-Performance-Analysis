@@ -1,0 +1,57 @@
+loop_without_for:
+(__TEXT,__text) section
+_rdtsc:
+0000000100000ee0	pushq	%rbp
+0000000100000ee1	movq	%rsp, %rbp
+0000000100000ee4	rdtsc
+0000000100000ee6	movl	%eax, -0x4(%rbp)
+0000000100000ee9	movl	%edx, -0x8(%rbp)
+0000000100000eec	movl	-0x8(%rbp), %eax
+0000000100000eef	movl	%eax, %ecx
+0000000100000ef1	shlq	$0x20, %rcx
+0000000100000ef5	movl	-0x4(%rbp), %eax
+0000000100000ef8	movl	%eax, %esi
+0000000100000efa	orq	%rsi, %rcx
+0000000100000efd	movq	%rcx, %rax
+0000000100000f00	popq	%rbp
+0000000100000f01	retq
+0000000100000f02	nopw	%cs:(%rax,%rax)
+_main:
+0000000100000f10	pushq	%rbp
+0000000100000f11	movq	%rsp, %rbp
+0000000100000f14	subq	$0x30, %rsp
+0000000100000f18	movl	$0x1, -0x4(%rbp)
+0000000100000f1f	movl	$0x1, -0x14(%rbp)
+0000000100000f26	movl	-0x14(%rbp), %eax
+0000000100000f29	xchgq	%rbx, %rsi
+0000000100000f2c	cpuid
+0000000100000f2e	xchgq	%rbx, %rsi
+0000000100000f31	movl	%eax, -0x4(%rbp)
+0000000100000f34	movl	%esi, -0x8(%rbp)
+0000000100000f37	movl	%ecx, -0xc(%rbp)
+0000000100000f3a	movl	%edx, -0x10(%rbp)
+0000000100000f3d	callq	_rdtsc
+0000000100000f42	movq	%rax, -0x20(%rbp)
+0000000100000f46	movl	-0x14(%rbp), %ecx
+0000000100000f49	movl	%ecx, %eax
+0000000100000f4b	xchgq	%rbx, %rsi
+0000000100000f4e	cpuid
+0000000100000f50	xchgq	%rbx, %rsi
+0000000100000f53	movl	%eax, -0x4(%rbp)
+0000000100000f56	movl	%esi, -0x8(%rbp)
+0000000100000f59	movl	%ecx, -0xc(%rbp)
+0000000100000f5c	movl	%edx, -0x10(%rbp)
+0000000100000f5f	callq	_rdtsc
+0000000100000f64	leaq	0x43(%rip), %rdi        ## literal pool for: "%llu\n"
+0000000100000f6b	movq	%rax, -0x28(%rbp)
+0000000100000f6f	movq	-0x28(%rbp), %rax
+0000000100000f73	subq	-0x20(%rbp), %rax
+0000000100000f77	movq	%rax, %rsi
+0000000100000f7a	movb	$0x0, %al
+0000000100000f7c	callq	0x100000f8e             ## symbol stub for: _printf
+0000000100000f81	xorl	%ecx, %ecx
+0000000100000f83	movl	%eax, -0x30(%rbp)
+0000000100000f86	movl	%ecx, %eax
+0000000100000f88	addq	$0x30, %rsp
+0000000100000f8c	popq	%rbp
+0000000100000f8d	retq
