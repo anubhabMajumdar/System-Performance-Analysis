@@ -42,5 +42,5 @@ int main(int argc, char* argv[])
     fprintf(fp, "%d\n", (f-i));
     fclose(fp);
 
-    printf("%" PRIu64 "\n", (f-i));
+    // printf("%" PRIu64 "\n", (f-i));
 }
