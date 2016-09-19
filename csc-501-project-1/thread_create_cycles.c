@@ -1,4 +1,8 @@
 #include <stdio.h>
+#include <string.h>
+#include <pthread.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include <stdint.h>
 #include <inttypes.h>
 #include <cpuid.h>
@@ -12,35 +16,37 @@ uint64_t rdtsc(){
     return ((uint64_t)hi << 32) | lo;
 }
 
-/* code by us */
+/* our code */
 
-int main(int argc, char* argv[])
+void* threadWork(void* arg)
+{
+	//printf("Thread created\n");
+	
+}
+
+
+int main()
 {
 	unsigned eax, ebx, ecx, edx, level;
 	eax = 1; /* processor info and feature bits */
 	level = 1;
   	uint64_t i, f;
     int id=-1;
-
+    pthread_t thread_id;
 
     FILE* fp;
     fp = fopen("loop_overhead.txt", "a");
 
     __cpuid(level, eax, ebx, ecx, edx); // for serializing the instructions
     i = rdtsc();
-    
-    id = fork();
 
+    id = pthread_create(&thread_id, NULL, &threadWork, NULL);
+    
     __cpuid(level, eax, ebx, ecx, edx); // for serializing the instructions
   	f = rdtsc();
-    
-    if (id==0)
-    {
-        exit(0);
-    }
-    
-    fprintf(fp, "%d\n", (f-i));
+
+  	fprintf(fp, "%d\n", (f-i));
     fclose(fp);
 
-    printf("%" PRIu64 "\n", (f-i));
+    // printf("%" PRIu64 "\n", (f-i));
 }
