@@ -403,7 +403,7 @@ In this report we describe a set of experiments performed to benchmark the perfo
 Specifications of a computer system does not always convey it's true performance. The hardware and operating system introduces various overheads which constrains performance. The measure of these overheads are important as they help benchmark the true performance of any system. This knowledge is important for developers as their application runs atop the operating system and heavily uses the services provided by it; thus any bottlenecks in the OS will translate into their applications and degrade performance. Also, the OS determines the baseline "responsiveness" the user expects from the system and applications should not be far from this baseline to ensure smooth customer experience. 
 
 \subsection{Goals}
-Our primary goal was to benchmark the CPU and memory in details and analyze the results to draw conclusions about their performance. The CPU experiments are designed and implemented by Anubhab Majumdar. Arun Jaganathan designed the experiments to test memory components and implementation was shared by both the authors. 
+Our primary goal was to benchmark the CPU, OS services and memory in details and analyze the results to draw conclusions about their performance. The CPU and OS services experiments are designed and implemented by Anubhab Majumdar. Arun Jaganathan designed the experiments to test memory components and implementation was shared by both the authors. 
 
 \subsection{Language}
 We used trusty C language to design and implement the experiments. The code was compiled with \textbf{Apple LLVM version 7.3.0 (clang-703.0.31)} with no optimizations because we wanted the assembly code to be in order of our original program. 
@@ -449,12 +449,38 @@ We have tested one of our personal computer, a MacBook Air. Following are the de
 \textbf{Storage}: 128 GB 
 \item
 \textbf{Medium Type}:  Solid State Drive
-
+\item
+\textbf{Operating System}: MacOS Sierra (Version 10.12)
 
 \end{enumerate}  
 
+% ------------------------------------------------------------------------------------------
+
+\section{Experiments}
+
+The experiments are divided into two broad categories:
+\begin{itemize}
+\item
+CPU, scheduling and OS services experiments
+\item
+Memory experiments 
+\end{itemize}
+Each of these categories are aggregation of small experiments that measure various overheads associated with OS or constraints of hardware. The following subsections describes the methodology, presents the findings and draw inference about it.
+\par Before we dive into explanation about the experiments, we would like to explain the units of measurement. We have measured the operations in term of \textbf{cycles} and \textbf{time}. CPU cycles were measured using the C function \textbf{rdtsc} (Read Time Stamp Counter) to read the CPU cycles before and after any operation and the difference is assumed as the number of cycles consumed by the operation. We should also mention that before using rdtsc, we have used the C function \textbf{cpuid} to prevent any out of order execution by CPU. Similarly, time was measured in microseconds by using the \textbf{gettimeofday} function before and after an operation and the difference is considered as the time taken to perform the task.   
 
 
+\subsection{CPU, scheduling and OS services experiments}
+
+The experiments are conducted to measure 5 key overheads. Their names and descriptions are listed the subsections below.
+
+\subsubsection{Measurement Overhead}
+
+We start our benchmarking experiments by measuring overhead to perform 2 basic tasks - reading and looping through multiple iterations of a task.
+
+\paragraph{Methodology}
+
+For reading time, we created a text file named "sampletext.txt" which contains 100,000 characters ('a' to be specific). The experiment was to measure, in terms of cycles and time, the cost of reading the 100,000 characters. At first, the cost of cpuid is measured using rdtsc function. The program is executed 100 times separately using bash script and the readings the noted. Next, the file read operation of 100,000 characters from "sampletext.txt" is performed. The time-stamp counter values are measured just before and just after read operation. The difference is noted in a file. This, again, is executed separately 100 times and the results are noted. The mean and median are calculated on the results and noted.
+\par In a similar fashion, the cost is measured in units of time as well. We replaced rdtsc with gettimeofday function and calculated the difference of time measured in microseconds. The results are noted for further analysis. The code is in files named reading\_time\_cycles.c and reading\_time\_time.c.      
 
 
 % needed in second column of first page if using \IEEEpubid
