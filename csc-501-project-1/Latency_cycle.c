@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
+int size = 1000;
 /* Code from linux manual */
 uint64_t rdtsc(){
     unsigned int lo,hi;
@@ -57,7 +58,7 @@ int main(int argc, char* argv[])
     struct node *p = (struct node *) malloc( sizeof(struct node) );
 
     // for inserting elements into the linked list
-    for(int i=0;i<1000;i++){
+    for(int i=0;i<size;i++){
         srand(time(NULL));
         int r = rand();    //returns a pseudo-random integer between 0 and RAND_MAX
         insertFirst(r);  
