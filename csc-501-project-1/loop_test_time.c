@@ -17,10 +17,16 @@ int main(int argc, char* argv[])
     FILE* fp;
     fp = fopen("loop_overhead.txt", "a");
 
+    int *buffer = (int*)malloc(10000*sizeof(int));
+    buffer[0] = 0;
+
     gettimeofday(&t, NULL);
     start_time = t.tv_usec;
 
-    for (k=1;k<=10000;k++);
+    for (k=1;k<=10000;k++)
+    {
+        // buffer[k-1] = 0;
+    }
     
     gettimeofday(&t, NULL);
     final_time = t.tv_usec;

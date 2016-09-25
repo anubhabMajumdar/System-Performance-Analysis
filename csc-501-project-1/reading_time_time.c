@@ -24,14 +24,15 @@ int main(int argc, char* argv[])
     fp = fopen("loop_overhead.txt", "a");
     
 
-    char buffer[100000];
+    char *buffer = (char*)malloc(sizeof(char));
     FILE* inpfp;
     inpfp = fopen("sampleFile.txt", "r");
-
+    fgets(buffer, 100000, (FILE*)inpfp);
+    
     gettimeofday(&t, NULL);
     start_time = t.tv_usec;
 
-    fgets(buffer, 100000, (FILE*)inpfp);
+    buffer[0] = 'a';
     
     gettimeofday(&t, NULL);
     final_time = t.tv_usec;
@@ -39,7 +40,7 @@ int main(int argc, char* argv[])
     fprintf(fp, "%d\n", (final_time-start_time));
     fclose(fp);
 
-    fclose(inpfp);
+    // fclose(inpfp);
 
     // printf("%" PRIu64 "\n", (f-i));
 }

@@ -24,10 +24,16 @@ int main(int argc, char* argv[])
     FILE* fp;
     fp = fopen("loop_overhead.txt", "a");
 
+    int *buffer = (int*)malloc(10000*sizeof(int));
+    buffer[0] = 0;
+    
     __cpuid(level, eax, ebx, ecx, edx); // for serializing the instructions
     i = rdtsc();
     
-    for (k=1;k<=10000;k++);
+    for (k=1;k<=10000;k++)
+    {
+        // buffer[k-1] = 0;
+    }
     
     __cpuid(level, eax, ebx, ecx, edx); // for serializing the instructions
   	f = rdtsc();
