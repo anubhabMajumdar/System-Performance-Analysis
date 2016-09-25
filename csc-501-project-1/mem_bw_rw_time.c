@@ -6,6 +6,7 @@
 #include <sys/time.h>
 
 int size = 1000;
+int step = 5;
 
 int main(int argc, char* argv[])
 {
@@ -18,17 +19,13 @@ int main(int argc, char* argv[])
     fp = fopen("loop_overhead.txt", "a");
 
     // Following code is for write Bandwidth
-    for(int i=0;i<size;i = i+5){
+    for(int i=0;i<size;i = i+step){
         gettimeofday(&t, NULL);
         start_time = t.tv_usec;
-
-        srand(time(NULL));
-        a[i] = rand()+5;   
-        a[i+1] = rand();
-        a[i+2] = rand();
-        a[i+3] = rand();
-        a[i+4] = rand();
-
+        for( int j=0; j<step;j++){
+            srand(time(NULL));
+            a[i+j] = rand()+5;
+        }
         gettimeofday(&t, NULL);
         final_time = t.tv_usec;
 
@@ -38,16 +35,13 @@ int main(int argc, char* argv[])
     
     // Following code is for Read Bandwidth
     int b,c,d,e,f;
-    for(int i=0;i<size;i = i+5){
+    for(int i=0;i<size;i = i+step){
         gettimeofday(&t, NULL);
         start_time = t.tv_usec;
+        for( int j=0; j<step;j++){
+            b = a[i+j] + 10;    
+        }
         
-        b = a[i] + 5;
-        c = a[i+1] + 10 ;
-        d = a[i+2];
-        e = a[i+3];  
-        f = a[i+4];      
-
         gettimeofday(&t, NULL);
         final_time = t.tv_usec;
 
