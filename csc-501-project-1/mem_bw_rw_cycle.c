@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
+int size = 1000;
 /* Code from linux manual */
 uint64_t rdtsc(){
     unsigned int lo,hi;
@@ -20,11 +21,11 @@ int main(int argc, char* argv[])
 	level = 1;
     uint64_t i, f;
 
-    int a[1000];
+    int a[size];
     FILE* fp;
     fp = fopen("loop_overhead.txt", "a");
     // Following code is for write Bandwidth
-    for(int i=0;i<1000;i = i+5){
+    for(int i=0;i<size;i = i+5){
         __cpuid(level, eax, ebx, ecx, edx); // for serializing the instructions
             i = rdtsc();
 
@@ -44,7 +45,7 @@ int main(int argc, char* argv[])
     
     // Following code is for Read Bandwidth
     int b,c,d,e,f;
-    for(int i=0;i<1000;i = i+5){
+    for(int i=0;i<size;i = i+5){
         __cpuid(level, eax, ebx, ecx, edx); // for serializing the instructions
             i = rdtsc();
 
