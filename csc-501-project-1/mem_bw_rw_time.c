@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
+int size = 1000;
 
 int main(int argc, char* argv[])
 {
@@ -12,12 +13,12 @@ int main(int argc, char* argv[])
     time_t start_time;
     time_t final_time;
 
-    int a[1000];
+    int a[size];
     FILE* fp;
     fp = fopen("loop_overhead.txt", "a");
 
     // Following code is for write Bandwidth
-    for(int i=0;i<1000;i = i+5){
+    for(int i=0;i<size;i = i+5){
         gettimeofday(&t, NULL);
         start_time = t.tv_usec;
 
@@ -37,7 +38,7 @@ int main(int argc, char* argv[])
     
     // Following code is for Read Bandwidth
     int b,c,d,e,f;
-    for(int i=0;i<1000;i = i+5){
+    for(int i=0;i<size;i = i+5){
         gettimeofday(&t, NULL);
         start_time = t.tv_usec;
         
