@@ -11,7 +11,7 @@
 #include <err.h>
 #include <fcntl.h>
 
-int size = getpagesize();
+int size = 4096;
 
 int main(int argc, char* argv[])
 {
