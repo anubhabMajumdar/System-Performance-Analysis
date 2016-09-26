@@ -6,7 +6,7 @@
 #include <sys/time.h>
 
 uint64_t size = 1024 * 1024; // (2 * 1024 * 1024) is the size of the array created (in bytes
-int step = 5;
+int step = 8*1024;
 
 int main(int argc, char* argv[])
 {
@@ -30,13 +30,19 @@ int main(int argc, char* argv[])
     gettimeofday(&t, NULL);
     final_time = t.tv_usec;
 
+    printf("start %d\n", start_time);
+    printf("end %d\n", final_time);
+
+
+
     time_diff = (final_time-start_time);
-    fprintf(fp,"\nWrite time for entire array (2MB) is %d\n",time_diff );
+    fprintf(fp,"\nWrite time for entire array (8MB) is %d\n", time_diff);
     
     fprintf(fp, "\n Write BW Ends here \n Read BW Starts here \n");
     
     // Following code is for Read Bandwidth
     int b;
+    int c;
     gettimeofday(&t, NULL);
     start_time = t.tv_usec;
     for(i=0;i<size;i = i+step){

@@ -12,9 +12,16 @@ uint64_t rdtsc(){
     return ((uint64_t)hi << 32) | lo;
 }
 
-int size = (1024*1024*1024)/sizeof(int);
-int stride = 1024;
-int granularity = 1024*1024;
+int size = (3*1024*1024)/sizeof(int);
+
+int l0 = (1024)/sizeof(int);
+int l1 = (8*1024)/sizeof(int);
+int l2 = (128*1024)/sizeof(int);
+int l3 = (768*1024)/sizeof(int);
+int l4 = (1024*1024)/sizeof(int);
+
+int stride = 1;
+int granularity = 1024;
 
 int main()
 {
@@ -26,25 +33,35 @@ int main()
     FILE* fp;
     fp = fopen("loop_overhead.txt", "a");
 
-    int i, j;
+    int i, j, cycles, temp;
 	int *arr;
 
-	for(i=512;i<=size;i+=granularity)
+	// for(i=(8/sizeof(int));i<=size;i+=granularity)
+	for(i=l0;i<l4;i+=granularity)
 	{
 		arr = malloc(i*sizeof(int));
+		cycles = 0;
 
-		__cpuid(level, eax, ebx, ecx, edx); // for serializing the instructions
-    	in = rdtsc();
-
+		// Bring array to cache and stop page fault
 		for (int j = 0; j < i; j+=stride)
 		{
-			arr[j] = 1;
+			arr[j] = j;
+		}		
+
+		for (int j = (i-1); j > (i-l0); j+=stride)
+		{
+			__cpuid(level, eax, ebx, ecx, edx); // for serializing the instructions
+    		in = rdtsc();
+
+			temp = arr[j];
+
+			__cpuid(level, eax, ebx, ecx, edx); // for serializing the instructions
+    		f = rdtsc();
+
+    		cycles+=f-in-1;
 		}
 
-		__cpuid(level, eax, ebx, ecx, edx); // for serializing the instructions
-    	f = rdtsc();
-
-    	fprintf(fp, "%lf\t%d\n", log2(i), (f-in-i));
+    	fprintf(fp, "%lf\t%d\n", log2(i), cycles);
     	free(arr);
 	}
 	fclose(fp);
