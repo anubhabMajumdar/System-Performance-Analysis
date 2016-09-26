@@ -5,8 +5,8 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
-uint64_t size = 1024 * 1024; // (2 * 1024 * 1024) is the size of the array created (in bytes
-int step = 8*1024;
+uint64_t size = 1024 * 1024; // (8 * 1024 * 1024) is the size of the array created (in bytes)
+int step = 1; // Loop unrolling is not implemented in the program
 
 int main(int argc, char* argv[])
 {
@@ -21,10 +21,8 @@ int main(int argc, char* argv[])
     gettimeofday(&t, NULL);
     start_time = t.tv_usec;
     // Following code is for write Bandwidth
-    for(i=0;i<size;i = i+step){
-        for( j=0; j<step;j++){
-            srand(time(NULL));
-            a[i+j] = rand()+10;
+    for(i=0;i<size;i = i++){
+            a[i] = 10;
         }
     }
     gettimeofday(&t, NULL);
@@ -45,11 +43,8 @@ int main(int argc, char* argv[])
     int c;
     gettimeofday(&t, NULL);
     start_time = t.tv_usec;
-    for(i=0;i<size;i = i+step){
-        for( j=0; j<step;j++){
-            b = a[i+j] + 10;    
-        }
-
+    for(i=0;i<size;i = i++){
+            b = a[i] + 10;    
     }
     gettimeofday(&t, NULL);
     final_time = t.tv_usec;  
