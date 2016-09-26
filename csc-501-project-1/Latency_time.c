@@ -5,7 +5,7 @@
 #include <time.h>
 #include <stdlib.h>
 
-int size = 1000;
+int size = 1000000;
 
 typedef struct node{
     int val;
@@ -67,6 +67,7 @@ int main(int argc, char* argv[])
             gettimeofday(&t, NULL);
             start_time = t.tv_usec;
 
+            p->val = p->val + 1;
             p = p->next;  
 
             gettimeofday(&t, NULL);

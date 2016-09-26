@@ -5,7 +5,8 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
-int size = 1000;
+// int size = 4000+16000+64000+10000;
+int size = 10000000;
 /* Code from linux manual */
 uint64_t rdtsc(){
     unsigned int lo,hi;
@@ -55,6 +56,7 @@ int main(int argc, char* argv[])
 	eax = 1; /* processor info and feature bits */
 	level = 1;
     uint64_t i, f;
+    int j, count;
     struct node *p = (struct node *) malloc( sizeof(struct node) );
 
     // for inserting elements into the linked list
@@ -67,18 +69,27 @@ int main(int argc, char* argv[])
     FILE* fp;
     fp = fopen("loop_overhead.txt", "a");
     
-    p = head;
-    while( p->next ){
-        __cpuid(level, eax, ebx, ecx, edx); // for serializing the instructions
-            
-            i = rdtsc();
-            p = p->next;  
-
-        __cpuid(level, eax, ebx, ecx, edx); // for serializing the instructions
-            f = rdtsc();
-
-        fprintf(fp, "%d\n", (f-i));
+     
+    for (j=100; j<=(size);j+=100)
+    {   
+      p = head;
+      count = 1;
+      __cpuid(level, eax, ebx, ecx, edx); // for serializing the instructions
+        i = rdtsc();
+    
+      while( count <= j )
+      {
               
-    }
+              p->val = p->val + 1;
+              p = p->next;
+              count++; 
+      }
+
+      __cpuid(level, eax, ebx, ecx, edx); // for serializing the instructions
+      f = rdtsc();
+
+      fprintf(fp, "%d\n", (f-i));
+    }   
     fclose(fp); 
+    printf("%d\n", sizeof(struct node));
 }
