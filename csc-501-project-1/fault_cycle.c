@@ -13,7 +13,7 @@
 
 // $ getconf PAGESIZE    Use this to get the pagesize
 
-int size = getpagesize();
+int size = 4096;
 /* Code from linux manual */
 uint64_t rdtsc(){
     unsigned int lo,hi;
@@ -43,6 +43,6 @@ int main(int argc, char* argv[])
     f = rdtsc();
 
     fprintf(fp, "%d\n", (f-i));
-    munmap(p,size);
+    munmap(p,size); 	// To clear the memory mapped
     fclose(fp); 
 }
