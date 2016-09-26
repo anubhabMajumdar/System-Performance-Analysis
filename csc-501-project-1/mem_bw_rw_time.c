@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
-uint64_t size = 1024 * 1024; // (2 * 1024 * 1024) is the size of the array created (in bytes
+uint64_t size = 1024 * 1024; // (8 * 1024 * 1024) is the size of the array created (in bytes)
 int step = 1; // Loop unrolling is not implemented in the program
 
 int main(int argc, char* argv[])
