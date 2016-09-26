@@ -34,6 +34,6 @@ int main(int argc, char* argv[])
     final_time = t.tv_usec;
 
     fprintf(fp, "%d\n", (final_time-start_time));
-              
+    printf(" \n Time for accessing a byte is ( Page size is 4096B) %f\n",((final_time-start_time)/4096));          
     fclose(fp); 
 }
