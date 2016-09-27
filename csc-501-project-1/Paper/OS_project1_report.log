@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.8.17)  27 SEP 2016 01:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.8.17)  27 SEP 2016 12:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -290,6 +290,10 @@ Package: mdwtab 1998/04/28 1.9 Table typesetting with style
 \fn@notes=\box34
 \fn@width=\dimen149
 )
+(/usr/local/texlive/2016/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip11
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
 (./OS_project1_report.aux)
 \openout1 = `OS_project1_report.aux'.
 
@@ -373,9 +377,9 @@ Package tabu Warning: \@arrayright is missing from the
 53.
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 464.
+(Font)              <7> on input line 467.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 464.
+(Font)              <5> on input line 467.
 [1{/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 
@@ -383,85 +387,92 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 <OneCore.png, id=11, 755.82375pt x 508.90125pt>
 File: OneCore.png Graphic file (type png)
  <use OneCore.png>
-Package pdftex.def Info: OneCore.png used on input line 476.
+Package pdftex.def Info: OneCore.png used on input line 479.
 (pdftex.def)             Requested size: 226.74887pt x 152.67155pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
  [2 <./OneCore.png>]
-Underfull \hbox (badness 1354) in paragraph at lines 633--635
+Underfull \hbox (badness 1354) in paragraph at lines 659--661
  []\OT1/ptm/m/it/10 Methodology: [][] \OT1/ptm/m/n/10 In this ex-per-i-ment, we
  mea-sured
  []
 
+[3] <latency.png, id=21, 1179.40625pt x 614.295pt>
+File: latency.png Graphic file (type png)
+ <use latency.png>
+Package pdftex.def Info: latency.png used on input line 806.
+(pdftex.def)             Requested size: 235.87708pt x 122.85681pt.
+ [4 <./latency.png>] [5
 
-Underfull \vbox (badness 1132) has occurred while \output is active []
-
- [3]
-Underfull \hbox (badness 10000) in paragraph at lines 783--784
+]
+Underfull \hbox (badness 10000) in paragraph at lines 913--914
 
  []
 
 
-LaTeX Warning: Command \textgreater invalid in math mode on input line 796.
+LaTeX Warning: Command \textgreater invalid in math mode on input line 926.
 
-LaTeX Font Info:    Try loading font information for OML+ptm on input line 796.
+LaTeX Font Info:    Try loading font information for OML+ptm on input line 926.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/psnfss/omlptm.fd
 File: omlptm.fd 
 )
 LaTeX Font Info:    Font shape `OML/ptm/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 796.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 926.
 
 
-LaTeX Warning: Command \textgreater invalid in math mode on input line 796.
+LaTeX Warning: Command \textgreater invalid in math mode on input line 926.
 
 
-LaTeX Warning: Command \textgreater invalid in math mode on input line 798.
+LaTeX Warning: Command \textgreater invalid in math mode on input line 928.
 
 
-LaTeX Warning: Command \textgreater invalid in math mode on input line 798.
+LaTeX Warning: Command \textgreater invalid in math mode on input line 928.
 
 
-LaTeX Warning: Command \textgreater invalid in math mode on input line 800.
+LaTeX Warning: Command \textgreater invalid in math mode on input line 930.
 
 
-LaTeX Warning: Command \textgreater invalid in math mode on input line 800.
+LaTeX Warning: Command \textgreater invalid in math mode on input line 930.
 
 
-LaTeX Warning: Command \textgreater invalid in math mode on input line 802.
+LaTeX Warning: Command \textgreater invalid in math mode on input line 932.
 
 
-LaTeX Warning: Command \textgreater invalid in math mode on input line 802.
+LaTeX Warning: Command \textgreater invalid in math mode on input line 932.
 
 
-LaTeX Warning: Command \textgreater invalid in math mode on input line 804.
+LaTeX Warning: Command \textgreater invalid in math mode on input line 934.
 
 
-LaTeX Warning: Command \textgreater invalid in math mode on input line 804.
+LaTeX Warning: Command \textgreater invalid in math mode on input line 934.
 
 
-LaTeX Warning: Command \textgreater invalid in math mode on input line 806.
+LaTeX Warning: Command \textgreater invalid in math mode on input line 936.
 
 
-LaTeX Warning: Command \textgreater invalid in math mode on input line 806.
+LaTeX Warning: Command \textgreater invalid in math mode on input line 936.
 
 
-Overfull \hbox (295.84615pt too wide) in paragraph at lines 786--816
+Overfull \hbox (42.89618pt too wide) in paragraph at lines 916--946
  [] 
  []
 
-<graph1.png, id=21, 487.8225pt x 286.06876pt>
+<graph1.png, id=29, 487.8225pt x 286.06876pt>
 File: graph1.png Graphic file (type png)
  <use graph1.png>
-Package pdftex.def Info: graph1.png used on input line 822.
+Package pdftex.def Info: graph1.png used on input line 952.
 (pdftex.def)             Requested size: 243.91064pt x 143.03403pt.
+ [6
 
 
-LaTeX Warning: `h' float specifier changed to `ht'.
-
+ <./graph1.png>]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 870.
+(Font)              <8> on input line 1013.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 870.
-** WARNING: \IEEEbiography is locked out when in conference mode (line 877).
+(Font)              <6> on input line 1013.
+
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -473,26 +484,28 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[4 <./graph1.png>] (./OS_project1_report.aux) ) 
+[7
+
+] (./OS_project1_report.aux) ) 
 Here is how much of TeX's memory you used:
- 4256 strings out of 493014
- 62215 string characters out of 6133351
- 149017 words of memory out of 5000000
- 7739 multiletter control sequences out of 15000+600000
- 38757 words of font info for 72 fonts, out of 8000000 for 9000
+ 4337 strings out of 493014
+ 63203 string characters out of 6133351
+ 149131 words of memory out of 5000000
+ 7816 multiletter control sequences out of 15000+600000
+ 37580 words of font info for 71 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
- 38i,8n,23p,779b,247s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2016/texmf-d
-ist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2016/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/u
-rw/times/utmb8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/u
-tmbi8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmr8a.pfb
-></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on OS_project1_report.pdf (4 pages, 215154 bytes).
+ 38i,8n,23p,779b,334s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvi
+ps/base/8r.enc}</usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmmi10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmsy10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmb8a.p
+fb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/
+local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texl
+ive/2016/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on OS_project1_report.pdf (7 pages, 252361 bytes).
 PDF statistics:
- 47 PDF objects out of 1000 (max. 8388607)
- 30 compressed objects within 1 object stream
+ 60 PDF objects out of 1000 (max. 8388607)
+ 38 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
 
