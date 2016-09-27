@@ -468,6 +468,16 @@ Memory experiments
 \end{itemize}
 Each of these categories are aggregation of small experiments that measure various overheads associated with OS or constraints of hardware. The following subsections describes the methodology, presents the findings and draw inference about it.
 \par Before we dive into explanation about the experiments, we would like to explain the units of measurement. We have measured the operations in term of \textbf{cycles} and \textbf{time}. CPU cycles were measured using the C function \textbf{rdtsc} (Read Time Stamp Counter) to read the CPU cycles before and after any operation and the difference is assumed as the number of cycles consumed by the operation. We should also mention that before using rdtsc, we have used the C function \textbf{cpuid} to prevent any out of order execution by CPU. Similarly, time was measured in microseconds by using the \textbf{gettimeofday} function before and after an operation and the difference is considered as the time taken to perform the task.   
+\par Another important point is that before executing the experiments we have restricted number of active cores in our system from 4 to 1 (see Fig.\ref{fig:onecore})
+\par For some operations like process creation or context switch, we couldn't estimate a base hardware performance because it is difficult to make an educated guess about how much cycles fork() or pipe() is actually consuming. In these cases we have marked the hardware base performance as "Undefined".
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.3]{OneCore.png}
+\caption{Restricting use of multi-core}
+\label{fig:onecore}
+\end{figure}
+
 
 % ------------------------------------------------------------------------------------------
 
@@ -495,9 +505,9 @@ We estimated it would take thrice the time. We considered page fault, cache miss
 \begin{center}
 \begin{tabular}{ |c|c| } 
   \hline
-  \textbf{Base Hardware Performance} & RAM: 1600 MHz \\ 
+  \textbf{Base Hardware Performance} & 6.25 $\mu$s \\ 
   \hline
-  \textbf{Estimated Overhead} &  Thrice of 1 read \\ 
+  \textbf{Estimated Overhead} &  12 $\mu$s \\ 
   \hline
   \textbf{Predicted Performance} & 18.75 $\mu$s \\ 
   \hline
@@ -513,11 +523,10 @@ We believe the results are quite accurate as we have measured, to the best of ou
 
 \subsubsection{Loop Overhead}
 
-In this experiment we had to "report the overhead of using a loop to measure many iterations of an operation".
-
 \paragraph{Methodology}
 
-This experiment is quite similar to the previous one. We wrote a code which contains a for-loop "looping" 10,000 times. We measured the cost, in terms of both cycle and time, twice - once by commenting the for-loop part and once by keeping the for-loop. 
+In this experiment we had to "report the overhead of using a loop to measure many iterations of an operation".
+This experiment is quite similar to the previous one. We wrote a code which contains a for-loop "looping" 10,000 times. We measured the cost, in terms of both cycle and time, twice - once by commenting the for-loop part and once by keeping the for-loop. No OS overhead will be incurred as no system call is made.
 
 \paragraph{Results}
 
@@ -526,7 +535,7 @@ The CPU speed is 1.6 GHz, i.e., it takes 0.6 ns to run one CPU cycle. The assemb
 \begin{center}
 \begin{tabular}{ |c|c| } 
   \hline
-  \textbf{Base Hardware Performance} & CPU: 1.6 GHz \\ 
+  \textbf{Base Hardware Performance} & 24 $\mu$s \\ 
   \hline
   \textbf{Estimated Overhead} &  No OS overhead \\ 
   \hline
@@ -541,10 +550,303 @@ From the above table we could see our predicted read time is quite close to meas
 We believe the results are quite accurate as we have measured, to the best of out ability, only the for-loop time and subtracted any extra time we measured along with the for-loop (like $\_$cpuid function cost).
 
 
+% ------------------------------------------------------------------------------------------
+
+\subsubsection{Procedure Call Overhead}
+
+\paragraph{Methodology}
+
+Next, we had to measure procedure call overhead. 8 different procedures needed to be tested, each with different number of arguments. The functions themselves do not do anything, they return as soon as they are called. The cost of calling such functions are measured one by one in cycles.  
+
+\paragraph{Results}
+
+The main estimation we had to make was about how much time it takes for the control switch from caller to callee and again come back to the caller function after callee returns. We predicted the function call itself will take 1 cycle and the return from function will take 1 cycle. 
+
+\begin{center}
+\begin{tabular}{ |c|c| } 
+  \hline
+  \textbf{Base Hardware Performance} & 2 cycles \\ 
+  \hline
+  \textbf{Estimated Overhead} &  8 cycles \\ 
+  \hline
+  \textbf{Predicted Performance (0 argument)} & 10 cycles \\ 
+  \hline
+  \textbf{Measured Performance (0 argument)} & 14.33 cycles \\ 
+  \hline
+  \textbf{Measured Performance (1 argument)} & 15.32 cycles \\ 
+  \hline
+  \textbf{Measured Performance (2 argument)} & 1.13 cycles \\ 
+  \hline
+  \textbf{Measured Performance (3 argument)} & 45.3 cycles \\ 
+  \hline
+  \textbf{Measured Performance (4 argument)} & 31.9 cycles \\ 
+  \hline
+  \textbf{Measured Performance (5 argument)} & 52.31 cycles \\ 
+  \hline
+  \textbf{Measured Performance (6 argument)} & 68.3 cycles \\ 
+  \hline
+  \textbf{Measured Performance (7 argument)} & 39.75 cycles \\ 
+  \hline
+\end{tabular}
+\end{center}
+
+From the above table we could see our predicted read time is quite close to measured time. 
+We believe the results are quite accurate as we have measured, to the best of out ability, only the function call time and subtracted any extra time we measured along with the function call (like $\_$cpuid function cost).
+We can observe from the table that with increase in the number of arguments, the cost associated with the function call increases, though not linearly. We attribute the uneven pattern in measured performance to optimizations the CPU may have performed.  
+The additional cost of adding another argument is measured as 3.63 cycles. This is the mean of the difference in cost between functions with one argument more than the other.
+
+% ------------------------------------------------------------------------------------------
+
+\subsubsection{System Call Overhead}
+
+\paragraph{Methodology}
+
+The purpose of this experiment was to measure a minimalistic system call cost. We choose to test with the \textbf{time} system call. It is lightweight and the result is never cached. So it served out purpose perfectly.
+The procedure of measuring cost is similar to the previous two. We measure cost by running the code twice, once commenting the system call and once letting it run.
+
+\paragraph{Results}
+
+The main estimate we had to make was the OS TRAP and OS TRAP handler time and it was difficult to estimate as we didn't had information about the TRAP handler code. We estimated it to be more than procedure call. For the procedure call we were getting results less than 1 $\mu$s. So we predicted the performance to be little more than 1 $\mu$s with OS overhead.
+
+\begin{center}
+\begin{tabular}{ |c|c| } 
+  \hline
+  \textbf{Base Hardware Performance} & Undetermined \\ 
+  \hline
+  \textbf{Estimated Overhead} &  1 $\mu$s \\ 
+  \hline
+  \textbf{Predicted Performance} & Greater than 1 $\mu$s \\ 
+  \hline
+  \textbf{Measured Performance} & 2.06 $\mu$s \\ 
+  \hline
+\end{tabular}
+\end{center}
+
+We believe the results are quite accurate as we have measured, to the best of out ability, only the system call time and subtracted any extra time we measured along with the system call (like $\_$cpuid function cost). Also since time system call is not cached, repeated execution of the program does not affect result.
+
+
+% ------------------------------------------------------------------------------------------
+
+\subsubsection{Task creation and running time}
+
+\paragraph{Methodology}
+ In this experiment, we measured the cost associated with process creation. We measured the time/time-stamp-counter before and after fork() system call. The difference will provide the task creation time. 
+ For measuring the running time, we included a for loop of 100 cycles in the child process followed by exit(0). Also, we added wait(childId) in the parent before measuring the time again. This forces the parent to wait for the child to exit before measuring the time for the second time. Thus this time we are measuring the child process running time.
+
+\paragraph{Results}
+
+We predicted the process creation and running to be a costly affair as the entire code and data needs to be copied for child process creation. We couldn't come up with a logical estimate for the time it would take to create or run a process. What we could guess is fork() would be more costly that time() system call we used before as it is not a minimalistic system call.
+
+\begin{center}
+\begin{tabular}{ |c|c| } 
+  \hline
+  \textbf{Base Hardware Performance} & Undetermined \\ 
+  \hline
+  \textbf{Estimated Overhead} &  20 $\mu$s \\ 
+  \hline
+  \textbf{Predicted Performance} & Greater than 20 $\mu$s \\ 
+  \hline
+  \textbf{Measured Performance} & 153.41 $\mu$s \\ 
+  \hline
+\end{tabular}
+\end{center}
+
+
+\begin{center}
+\begin{tabular}{ |c|c| } 
+  \hline
+  \textbf{Base Hardware Performance} & Undetermined \\ 
+  \hline
+  \textbf{Estimated Overhead} &  200 $\mu$s \\ 
+  \hline
+  \textbf{Predicted Performance} & Greater than 200 $\mu$s \\ 
+  \hline
+  \textbf{Measured Performance} & 522.41 $\mu$s \\ 
+  \hline
+\end{tabular}
+\end{center}
+
+The details of all the measurement is present in the Process creation and Process running tabs of measurement.xls file. There we can see that the measured performance sometimes varies between individual executions. We attribute this variation to the non-determinism surfacing from scheduler.
+
+
+% ------------------------------------------------------------------------------------------
+
+\subsubsection{Thread creation and running time}
+
+\paragraph{Methodology}
+
+This is very familiar to the last experiment except one difference - instead of creating and running a new process we need to create and run a new thread performing the same task as previous. 
+The cost measurement process is exactly the same.
+
+\paragraph{Results}
+
+Thread is a lightweight process. Thus we estimated its cost to be much less than process.
+
+\begin{center}
+\begin{tabular}{ |c|c| } 
+  \hline
+  \textbf{Base Hardware Performance} & Undetermined \\ 
+  \hline
+  \textbf{Estimated Overhead} &  10 $\mu$s \\ 
+  \hline
+  \textbf{Predicted Performance} & Greater than 10 $\mu$s \\ 
+  \hline
+  \textbf{Measured Performance} & 21.34 $\mu$s \\ 
+  \hline
+\end{tabular}
+\end{center}
 
 
 
+\begin{center}
+\begin{tabular}{ |c|c| } 
+  \hline
+  \textbf{Base Hardware Performance} & Undetermined \\ 
+  \hline
+  \textbf{Estimated Overhead} &  50 $\mu$s \\ 
+  \hline
+  \textbf{Predicted Performance} & Greater than 50 $\mu$s \\ 
+  \hline
+  \textbf{Measured Performance} & 25.5 $\mu$s \\ 
+  \hline
+\end{tabular}
+\end{center}
 
+We believe our measurements to be quite accurate as we were careful in subtracting any extra instructions within our time measuring functions.
+
+
+% ------------------------------------------------------------------------------------------
+
+\subsubsection{Context switch time}
+
+\paragraph{Methodology}
+
+In this experiment we measured the context switch time using the pipe system call.
+First, we created a pipe in parent process and used fork() to create a child process. Inside the child process we closed the input side of pipe, measured the time/time-stamp-counter and sent that value through the pipe and exit. Meanwhile, in the parent process, we close off the input side of the pipe and read the value sent by the child process. Once we get the value, we immediately measure time/time-stamp-counter value again and subtract the one we received from this. 
+Here, the parent process has to wait till the child process sends the value, thus eliminating the need to include wait(childID) call. Also we are measuring the final time in parent process but only after child process sends it's data. This ensures a context switch has taken place and we have measurements before and after it takes place.
+
+\paragraph{Results}
+
+We have been very careful in measuring the cost in this experiment. We have measured, individually, the time taken to send and receive message from pipe. We have subtracted this costs from our measurement to ensure we achieve correct results.
+We also estimated software overhead to be more than thread running overhead but less than process running overhead.
+
+\begin{center}
+\begin{tabular}{ |c|c| } 
+  \hline
+  \textbf{Base Hardware Performance} & Undetermined \\ 
+  \hline
+  \textbf{Estimated Overhead} &  150 $\mu$s \\ 
+  \hline
+  \textbf{Predicted Performance} & Greater than 150 $\mu$s \\ 
+  \hline
+  \textbf{Measured Performance} & 161.83 $\mu$s \\ 
+  \hline
+\end{tabular}
+\end{center}
+
+% ------------------------------------------------------------------------------------------
+
+\subsection{Memory experiments}
+
+% ------------------------------------------------------------------------------------------
+
+\subsubsection{RAM access time}
+
+\paragraph{Methodology}
+
+\paragraph{Results}
+
+
+% ------------------------------------------------------------------------------------------
+
+\subsubsection{RAM bandwidth}
+
+\paragraph{Methodology}
+
+\paragraph{Results}
+
+% ------------------------------------------------------------------------------------------
+
+\subsubsection{Page fault service time}
+
+\paragraph{Methodology}
+
+\paragraph{Results}
+
+
+
+% ------------------------------------------------------------------------------------------
+
+\section{Conclusion}
+
+The experiments provide results which validates many of our theoretical understandings of how an operating systems works in tandem with hardware and the close relation between them.
+\par The results from all the experiments are summarized below:\\
+
+\begin{center}
+\begin{tabular} { |c|c|c|c|c| } 
+  \hline
+  \textbf{Operation} & \textbf{Base Hardware Performance} & \textbf{Estimated Overhead} & \textbf{Predicted Performance} & \textbf{Measured Performance} \\
+  \hline
+  Loop & 24 $\mu$s & NA & 24 $\mu$s & 24.33 $\mu$s \\
+  \hline
+  Read & 6.25 $\mu$s & 12 $\mu$s & 18.25 $\mu$s & 21.65 $\mu$s \\
+  \hline
+  Procedure call  & 2 cycles & 8 cycles & 10 cycles & 14.33 $\mu$s \\
+  \hline
+  System Call & Undetermined & 1 $\mu$s & $\textgreater$1 $\mu$s & 2.06 $\mu$s \\
+  \hline
+  Process Creation & Undetermined & 20 $\mu$s & $\textgreater$20 $\mu$s & 153.41 $\mu$s \\
+  \hline
+  Process running & Undetermined & 200 $\mu$s & $\textgreater$200 $\mu$s & 522.41 $\mu$s \\
+  \hline
+  Thread creation & Undetermined & 10 $\mu$s & $\textgreater$10 $\mu$s & 21.34 $\mu$s \\
+  \hline
+  Thread running & Undetermined & 50 $\mu$s & $\textgreater$50 $\mu$s & 25.5 $\mu$s \\
+  \hline
+  Context switch & Undetermined & 150 $\mu$s & $\textgreater$150 $\mu$s & 161.83 $\mu$s \\
+  \hline
+  Memory Latency & 24 $\mu$s & NA & 24 $\mu$s & 24.33 $\mu$s \\
+  \hline
+  RAM bandwidth & 24 $\mu$s & NA & 24 $\mu$s & 24.33 $\mu$s \\
+  \hline
+  Page fault & 24 $\mu$s & NA & 24 $\mu$s & 24.33 $\mu$s \\
+  \hline
+  
+\end{tabular}
+\end{center}
+
+For a more visual comparison, we have plotted the CPU and OS services experimental results in a graph. (See Fig. \ref{fig:graph1})
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{graph1.png}
+\caption{Results of CPU experiments}
+\label{fig:graph1}
+\end{figure}
+
+The graph clearly shows the contrast between cost associated with the different tasks.
+Some noteworthy points are:
+\begin{itemize}
+
+\item
+Process creation and process running is costliest of the tasks
+
+\item
+Thread is lightweight process - its cost is much less than process
+
+\item
+Context switch is costly, but less than process creation or running
+
+\item
+Reading time from memory is higher compared to procedure calls 
+
+\item
+Procedure calls are cheaper, but their cost increases with increasing parameters
+
+\item
+System calls vary by cost; minimalist ones like time() takes less time where as fork() takes much longer to finish
+
+\end{itemize}
 
 
 
@@ -553,156 +855,15 @@ We believe the results are quite accurate as we have measured, to the best of ou
 
 
 
-% needed in second column of first page if using \IEEEpubid
-%\IEEEpubidadjcol
-
-% An example of a floating figure using the graphicx package.
-% Note that \label must occur AFTER (or within) \caption.
-% For figures, \caption should occur after the \includegraphics.
-% Note that IEEEtran v1.7 and later has special internal code that
-% is designed to preserve the operation of \label within \caption
-% even when the captionsoff option is in effect. However, because
-% of issues like this, it may be the safest practice to put all your
-% \label just after \caption rather than within \caption{}.
-%
-% Reminder: the "draftcls" or "draftclsnofoot", not "draft", class
-% option should be used if it is desired that the figures are to be
-% displayed while in draft mode.
-%
-%\begin{figure}[!t]
-%\centering
-%\includegraphics[width=2.5in]{myfigure}
-% where an .eps filename suffix will be assumed under latex, 
-% and a .pdf suffix will be assumed for pdflatex; or what has been declared
-% via \DeclareGraphicsExtensions.
-%\caption{Simulation Results}
-%\label{fig_sim}
-%\end{figure}
-
-% Note that IEEE typically puts floats only at the top, even when this
-% results in a large percentage of a column being occupied by floats.
 
 
-% An example of a double column floating figure using two subfigures.
-% (The subfig.sty package must be loaded for this to work.)
-% The subfigure \label commands are set within each subfloat command, the
-% \label for the overall figure must come after \caption.
-% \hfil must be used as a separator to get equal spacing.
-% The subfigure.sty package works much the same way, except \subfigure is
-% used instead of \subfloat.
-%
-%\begin{figure*}[!t]
-%\centerline{\subfloat[Case I]\includegraphics[width=2.5in]{subfigcase1}%
-%\label{fig_first_case}}
-%\hfil
-%\subfloat[Case II]{\includegraphics[width=2.5in]{subfigcase2}%
-%\label{fig_second_case}}}
-%\caption{Simulation results}
-%\label{fig_sim}
-%\end{figure*}
-%
-% Note that often IEEE papers with subfigures do not employ subfigure
-% captions (using the optional argument to \subfloat), but instead will
-% reference/describe all of them (a), (b), etc., within the main caption.
-
-
-% An example of a floating table. Note that, for IEEE style tables, the 
-% \caption command should come BEFORE the table. Table text will default to
-% \footnotesize as IEEE normally uses this smaller font for tables.
-% The \label must come after \caption as always.
-%
-%\begin{table}[!t]
-%% increase table row spacing, adjust to taste
-%\renewcommand{\arraystretch}{1.3}
-% if using array.sty, it might be a good idea to tweak the value of
-% \extrarowheight as needed to properly center the text within the cells
-%\caption{An Example of a Table}
-%\label{table_example}
-%\centering
-%% Some packages, such as MDW tools, offer better commands for making tables
-%% than the plain LaTeX2e tabular which is used here.
-%\begin{tabular}{|c||c|}
-%\hline
-%One & Two\\
-%\hline
-%Three & Four\\
-%\hline
-%\end{tabular}
-%\end{table}
-
-
-% Note that IEEE does not put floats in the very first column - or typically
-% anywhere on the first page for that matter. Also, in-text middle ("here")
-% positioning is not used. Most IEEE journals use top floats exclusively.
-% Note that, LaTeX2e, unlike IEEE journals, places footnotes above bottom
-% floats. This can be corrected via the \fnbelowfloat command of the
-% stfloats package.
-
-
-
-\section{Conclusion}
-\blindtext
-
-
-
-
-
-% if have a single appendix:
-%\appendix[Proof of the Zonklar Equations]
-% or
-%\appendix  % for no appendix heading
-% do not use \section anymore after \appendix, only \section*
-% is possibly needed
-
-% use appendices with more than one appendix
-% then use \section to start each appendix
-% you must declare a \section before using any
-% \subsection or using \label (\appendices by itself
-% starts a section numbered zero.)
-%
-
-
-\appendices
-\section{Proof of the First Zonklar Equation}
-\blindtext
-
-% use section* for acknowledgement
-\section*{Acknowledgment}
-
-
-The authors would like to thank...
-
-
-% Can use something like this to put references on a page
-% by themselves when using endfloat and the captionsoff option.
 \ifCLASSOPTIONcaptionsoff
   \newpage
 \fi
 
 
 
-% trigger a \newpage just before the given reference
-% number - used to balance the columns on the last page
-% adjust value as needed - may need to be readjusted if
-% the document is modified later
-%\IEEEtriggeratref{8}
-% The "triggered" command can be changed if desired:
-%\IEEEtriggercmd{\enlargethispage{-5in}}
 
-% references section
-
-% can use a bibliography generated by BibTeX as a .bbl file
-% BibTeX documentation can be easily obtained at:
-% http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/
-% The IEEEtran BibTeX style support page is at:
-% http://www.michaelshell.org/tex/ieeetran/bibtex/
-%\bibliographystyle{IEEEtran}
-% argument is your BibTeX string definitions and bibliography database(s)
-%\bibliography{IEEEabrv,../bib/paper}
-%
-% <OR> manually copy in the resultant .bbl file
-% set second argument of \begin to the number of references
-% (used to reserve space for the reference number labels box)
 \begin{thebibliography}{1}
 
 \bibitem{IEEEhowto:kopka}
@@ -711,32 +872,13 @@ H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
 
 \end{thebibliography}
 
-% biography section
-% 
-% If you have an EPS/PDF photo (graphicx package needed) extra braces are
-% needed around the contents of the optional argument to biography to prevent
-% the LaTeX parser from getting confused when it sees the complicated
-% \includegraphics command within an optional argument. (You could create
-% your own custom macro containing the \includegraphics command to make things
-% simpler here.)
-%\begin{biography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{mshell}}]{Michael Shell}
-% or if you just want to reserve a space for a photo:
+
 
 \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{picture}}]{John Doe}
 \blindtext
 \end{IEEEbiography}
 
-% You can push biographies down or up by placing
-% a \vfill before or after them. The appropriate
-% use of \vfill depends on what kind of text is
-% on the last page and whether or not the columns
-% are being equalized.
 
-%\vfill
-
-% Can be used to pull up biographies so that the bottom of the last one
-% is flush with the other column.
-%\enlargethispage{-5in}
 
 
 

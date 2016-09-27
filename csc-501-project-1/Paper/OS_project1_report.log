@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.8.17)  26 SEP 2016 20:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.8.17)  27 SEP 2016 01:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -380,12 +380,88 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 
 
 ]
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 709.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 709.
+<OneCore.png, id=11, 755.82375pt x 508.90125pt>
+File: OneCore.png Graphic file (type png)
+ <use OneCore.png>
+Package pdftex.def Info: OneCore.png used on input line 476.
+(pdftex.def)             Requested size: 226.74887pt x 152.67155pt.
+ [2 <./OneCore.png>]
+Underfull \hbox (badness 1354) in paragraph at lines 633--635
+ []\OT1/ptm/m/it/10 Methodology: [][] \OT1/ptm/m/n/10 In this ex-per-i-ment, we
+ mea-sured
+ []
 
-** WARNING: \IEEEbiography is locked out when in conference mode (line 725).
+
+Underfull \vbox (badness 1132) has occurred while \output is active []
+
+ [3]
+Underfull \hbox (badness 10000) in paragraph at lines 783--784
+
+ []
+
+
+LaTeX Warning: Command \textgreater invalid in math mode on input line 796.
+
+LaTeX Font Info:    Try loading font information for OML+ptm on input line 796.
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/psnfss/omlptm.fd
+File: omlptm.fd 
+)
+LaTeX Font Info:    Font shape `OML/ptm/m/n' in size <10> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 796.
+
+
+LaTeX Warning: Command \textgreater invalid in math mode on input line 796.
+
+
+LaTeX Warning: Command \textgreater invalid in math mode on input line 798.
+
+
+LaTeX Warning: Command \textgreater invalid in math mode on input line 798.
+
+
+LaTeX Warning: Command \textgreater invalid in math mode on input line 800.
+
+
+LaTeX Warning: Command \textgreater invalid in math mode on input line 800.
+
+
+LaTeX Warning: Command \textgreater invalid in math mode on input line 802.
+
+
+LaTeX Warning: Command \textgreater invalid in math mode on input line 802.
+
+
+LaTeX Warning: Command \textgreater invalid in math mode on input line 804.
+
+
+LaTeX Warning: Command \textgreater invalid in math mode on input line 804.
+
+
+LaTeX Warning: Command \textgreater invalid in math mode on input line 806.
+
+
+LaTeX Warning: Command \textgreater invalid in math mode on input line 806.
+
+
+Overfull \hbox (295.84615pt too wide) in paragraph at lines 786--816
+ [] 
+ []
+
+<graph1.png, id=21, 487.8225pt x 286.06876pt>
+File: graph1.png Graphic file (type png)
+ <use graph1.png>
+Package pdftex.def Info: graph1.png used on input line 822.
+(pdftex.def)             Requested size: 243.91064pt x 143.03403pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 870.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 870.
+** WARNING: \IEEEbiography is locked out when in conference mode (line 877).
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -397,26 +473,26 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[2] (./OS_project1_report.aux) ) 
+[4 <./graph1.png>] (./OS_project1_report.aux) ) 
 Here is how much of TeX's memory you used:
- 4226 strings out of 493014
- 61750 string characters out of 6133351
- 142001 words of memory out of 5000000
- 7715 multiletter control sequences out of 15000+600000
+ 4256 strings out of 493014
+ 62215 string characters out of 6133351
+ 149017 words of memory out of 5000000
+ 7739 multiletter control sequences out of 15000+600000
  38757 words of font info for 72 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
- 38i,7n,23p,779b,210s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2016/texmf-dist/fonts/enc/d
-vips/base/8r.enc}</usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmmi10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmsy10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmb8a
-.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></us
-r/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/te
-xlive/2016/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on OS_project1_report.pdf (2 pages, 76437 bytes).
+ 38i,8n,23p,779b,247s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2016/texmf-d
+ist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2016/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/u
+rw/times/utmb8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/u
+tmbi8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmr8a.pfb
+></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on OS_project1_report.pdf (4 pages, 215154 bytes).
 PDF statistics:
- 36 PDF objects out of 1000 (max. 8388607)
- 25 compressed objects within 1 object stream
+ 47 PDF objects out of 1000 (max. 8388607)
+ 30 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
