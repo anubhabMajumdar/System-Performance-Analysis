@@ -217,6 +217,7 @@
 % *** ALIGNMENT PACKAGES ***
 %
 \usepackage{array}
+\usepackage{tabu}
 % Frank Mittelbach's and David Carlisle's array.sty patches and improves
 % the standard LaTeX2e array and tabular environments to provide better
 % appearance and additional user controls. As the default LaTeX2e table
@@ -430,9 +431,9 @@ We have tested one of our personal computer, a MacBook Air. Following are the de
 \item
 \textbf{Total Number of Cores}:  2
 \item
-\textbf{L2 Cache}: 128 KB
+\textbf{L2 Cache}: 256 KB (per core)
 \item
-\textbf{L3 Cache}: 768 KB
+\textbf{L3 Cache}: 3 MB
 \item
 \textbf{Memory}: 8 GB
 \item
@@ -468,6 +469,8 @@ Memory experiments
 Each of these categories are aggregation of small experiments that measure various overheads associated with OS or constraints of hardware. The following subsections describes the methodology, presents the findings and draw inference about it.
 \par Before we dive into explanation about the experiments, we would like to explain the units of measurement. We have measured the operations in term of \textbf{cycles} and \textbf{time}. CPU cycles were measured using the C function \textbf{rdtsc} (Read Time Stamp Counter) to read the CPU cycles before and after any operation and the difference is assumed as the number of cycles consumed by the operation. We should also mention that before using rdtsc, we have used the C function \textbf{cpuid} to prevent any out of order execution by CPU. Similarly, time was measured in microseconds by using the \textbf{gettimeofday} function before and after an operation and the difference is considered as the time taken to perform the task.   
 
+% ------------------------------------------------------------------------------------------
+
 
 \subsection{CPU, scheduling and OS services experiments}
 
@@ -475,12 +478,79 @@ The experiments are conducted to measure 5 key overheads. Their names and descri
 
 \subsubsection{Measurement Overhead}
 
-We start our benchmarking experiments by measuring overhead to perform 2 basic tasks - reading and looping through multiple iterations of a task.
+We start our benchmarking experiments by measuring overhead to perform 2 basic tasks - reading from memory and looping through multiple iterations of a task.
 
 \paragraph{Methodology}
 
-For reading time, we created a text file named "sampletext.txt" which contains 100,000 characters ('a' to be specific). The experiment was to measure, in terms of cycles and time, the cost of reading the 100,000 characters. At first, the cost of cpuid is measured using rdtsc function. The program is executed 100 times separately using bash script and the readings the noted. Next, the file read operation of 100,000 characters from "sampletext.txt" is performed. The time-stamp counter values are measured just before and just after read operation. The difference is noted in a file. This, again, is executed separately 100 times and the results are noted. The mean and median are calculated on the results and noted.
-\par In a similar fashion, the cost is measured in units of time as well. We replaced rdtsc with gettimeofday function and calculated the difference of time measured in microseconds. The results are noted for further analysis. The code is in files named reading\_time\_cycles.c and reading\_time\_time.c.      
+For reading time, we allocated a character array of size 10,000 bytes and initialized 'a' in all the locations. The experiment was to measure, in terms of cycles and time, the cost of reading these 10,000 characters. At first, the cost of cpuid is measured using rdtsc function. The program is executed 100 times separately using bash script and the readings the noted. Next, the file read operation of 100,000 characters from the array is performed. The time-stamp counter values are measured just before and just after read operation. The difference is noted in a file. This, again, is executed separately 100 times and the results are noted. The mean and median are calculated on the results and noted.
+\par In a similar fashion, the cost is measured in units of time as well. We replaced rdtsc with gettimeofday function and calculated the difference of time measured in microseconds. The results are noted in sheet "Reading Time" in measurements.xls file. 
+
+\paragraph{Results}
+
+The RAM speed of the machine is 1600 MHz (as specified in System Information). 
+Thus to perform 1 read operation it should take 0.6 ns. 
+For reading 10,000 characters it should take 6.25 $\mu$s. 
+We estimated it would take thrice the time. We considered page fault, cache miss, TLB miss for overhead and hardware pre-fetching as advantage.
+
+\begin{center}
+\begin{tabular}{ |c|c| } 
+  \hline
+  \textbf{Base Hardware Performance} & RAM: 1600 MHz \\ 
+  \hline
+  \textbf{Estimated Overhead} &  Thrice of 1 read \\ 
+  \hline
+  \textbf{Predicted Performance} & 18.75 $\mu$s \\ 
+  \hline
+  \textbf{Measured Performance} & 21.65 $\mu$s \\ 
+  \hline
+\end{tabular}
+\end{center}
+
+From the above table we could see our predicted read time is quite close to measured time. The difference could be because of our estimate of page faults handling time.
+We believe the results are quite accurate as we have measured, to the best of out ability, only the read time and subtracted the for loop time from the results.
+
+% ------------------------------------------------------------------------------------------
+
+\subsubsection{Loop Overhead}
+
+In this experiment we had to "report the overhead of using a loop to measure many iterations of an operation".
+
+\paragraph{Methodology}
+
+This experiment is quite similar to the previous one. We wrote a code which contains a for-loop "looping" 10,000 times. We measured the cost, in terms of both cycle and time, twice - once by commenting the for-loop part and once by keeping the for-loop. 
+
+\paragraph{Results}
+
+The CPU speed is 1.6 GHz, i.e., it takes 0.6 ns to run one CPU cycle. The assembly code replacing the for-loop had 4 instructions. We estimated one cycle is required for each instruction.
+
+\begin{center}
+\begin{tabular}{ |c|c| } 
+  \hline
+  \textbf{Base Hardware Performance} & CPU: 1.6 GHz \\ 
+  \hline
+  \textbf{Estimated Overhead} &  No OS overhead \\ 
+  \hline
+  \textbf{Predicted Performance} & 24 $\mu$s \\ 
+  \hline
+  \textbf{Measured Performance} & 24.33 $\mu$s \\ 
+  \hline
+\end{tabular}
+\end{center}
+
+From the above table we could see our predicted read time is quite close to measured time. 
+We believe the results are quite accurate as we have measured, to the best of out ability, only the for-loop time and subtracted any extra time we measured along with the for-loop (like $\_$cpuid function cost).
+
+
+
+
+
+
+
+
+
+% ------------------------------------------------------------------------------------------
+
+
 
 
 % needed in second column of first page if using \IEEEpubid

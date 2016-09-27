@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.8.17)  25 SEP 2016 11:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.8.17)  26 SEP 2016 20:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -233,59 +233,92 @@ Package: array 2014/10/28 v2.4c Tabular extension package (FMi)
 \extratabsurround=\skip49
 \backup@length=\skip50
 )
+(/usr/local/texlive/2016/texmf-dist/tex/latex/tabu/tabu.sty
+Package: tabu 2011/02/26 v2.8 - flexible LaTeX tabulars (FC)
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/varwidth/varwidth.sty
+Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
+\@vwid@box=\box29
+\sift@deathcycles=\count126
+\@vwid@loff=\dimen130
+\@vwid@roff=\dimen131
+)
+\c@taburow=\count127
+\tabu@nbcols=\count128
+\tabu@cnt=\count129
+\tabu@Xcol=\count130
+\tabu@alloc=\count131
+\tabu@nested=\count132
+\tabu@target=\dimen132
+\tabu@spreadtarget=\dimen133
+\tabu@naturalX=\dimen134
+\tabucolX=\dimen135
+\tabu@Xsum=\dimen136
+\extrarowdepth=\dimen137
+\abovetabulinesep=\dimen138
+\belowtabulinesep=\dimen139
+\tabustrutrule=\dimen140
+\tabu@thebody=\toks22
+\tabu@footnotes=\toks23
+\tabu@box=\box30
+\tabu@arstrutbox=\box31
+\tabu@hleads=\box32
+\tabu@vleads=\box33
+\tabu@cellskip=\skip51
+)
 (/usr/local/texlive/2016/texmf-dist/tex/latex/mdwtools/mdwmath.sty
 Package: mdwmath 1996/04/11 1.1 Nice mathematical things
-\sq@sqrt=\count126
+\sq@sqrt=\count133
 LaTeX Info: Redefining \sqrt on input line 84.
 )
 (/usr/local/texlive/2016/texmf-dist/tex/latex/mdwtools/mdwtab.sty
 Package: mdwtab 1998/04/28 1.9 Table typesetting with style
-\tab@state=\count127
-\tab@columns=\count128
-\tab@preamble=\toks22
-\tab@shortline=\toks23
-\extrarowheight=\dimen130
-\tabextrasep=\dimen131
-\arrayextrasep=\dimen132
-\smarraycolsep=\dimen133
-\smarrayextrasep=\dimen134
-\tab@width=\dimen135
-\col@sep=\dimen136
-\tab@endheight=\dimen137
-\tab@leftskip=\skip51
-\tab@rightskip=\skip52
-\fn@notes=\box29
-\fn@width=\dimen138
+\tab@state=\count134
+\tab@columns=\count135
+\tab@preamble=\toks24
+\tab@shortline=\toks25
+\extrarowheight=\dimen141
+\tabextrasep=\dimen142
+\arrayextrasep=\dimen143
+\smarraycolsep=\dimen144
+\smarrayextrasep=\dimen145
+\tab@width=\dimen146
+\col@sep=\dimen147
+\tab@endheight=\dimen148
+\tab@leftskip=\skip52
+\tab@rightskip=\skip53
+\fn@notes=\box34
+\fn@width=\dimen149
 )
 (./OS_project1_report.aux)
 \openout1 = `OS_project1_report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 352.
-LaTeX Font Info:    ... okay on input line 352.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 352.
-LaTeX Font Info:    ... okay on input line 352.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 352.
-LaTeX Font Info:    ... okay on input line 352.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 352.
-LaTeX Font Info:    ... okay on input line 352.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 352.
-LaTeX Font Info:    ... okay on input line 352.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 352.
-LaTeX Font Info:    ... okay on input line 352.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 353.
+LaTeX Font Info:    ... okay on input line 353.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 353.
+LaTeX Font Info:    ... okay on input line 353.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 353.
+LaTeX Font Info:    ... okay on input line 353.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 353.
+LaTeX Font Info:    ... okay on input line 353.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 353.
+LaTeX Font Info:    ... okay on input line 353.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 353.
+LaTeX Font Info:    ... okay on input line 353.
 
 (/usr/local/texlive/2016/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count129
-\scratchdimen=\dimen139
-\scratchbox=\box30
-\nofMPsegments=\count130
-\nofMParguments=\count131
-\everyMPshowfont=\toks24
-\MPscratchCnt=\count132
-\MPscratchDim=\dimen140
-\MPnumerator=\count133
-\makeMPintoPDFobject=\count134
-\everyMPtoPDFconversion=\toks25
+\scratchcounter=\count136
+\scratchdimen=\dimen150
+\scratchbox=\box35
+\nofMPsegments=\count137
+\nofMParguments=\count138
+\everyMPshowfont=\toks26
+\MPscratchCnt=\count139
+\MPscratchDim=\dimen151
+\MPnumerator=\count140
+\makeMPintoPDFobject=\count141
+\everyMPtoPDFconversion=\toks27
 ) (/usr/local/texlive/2016/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2016/05/10 v0.21 Utility functions of pdfTeX for LuaTeX (HO
 )
@@ -333,21 +366,26 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 463.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 463.
 
+Package tabu Warning: \@arrayright is missing from the 
+(tabu)                definition of \endarray. 
+(tabu)                Comptability with delarray.sty is broken. on input line 3
+53.
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 464.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 464.
 [1{/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 
 ]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 639.
+(Font)              <8> on input line 709.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 639.
+(Font)              <6> on input line 709.
 
-** WARNING: \IEEEbiography is locked out when in conference mode (line 655).
+** WARNING: \IEEEbiography is locked out when in conference mode (line 725).
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -361,23 +399,24 @@ Before submitting the final camera ready copy, remember to:
 
 [2] (./OS_project1_report.aux) ) 
 Here is how much of TeX's memory you used:
- 3496 strings out of 493014
- 51326 string characters out of 6133351
- 124937 words of memory out of 5000000
- 6993 multiletter control sequences out of 15000+600000
+ 4226 strings out of 493014
+ 61750 string characters out of 6133351
+ 142001 words of memory out of 5000000
+ 7715 multiletter control sequences out of 15000+600000
  38757 words of font info for 72 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
- 38i,6n,23p,779b,210s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,7n,23p,779b,210s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2016/texmf-dist/fonts/enc/d
 vips/base/8r.enc}</usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmsy10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmb8
-a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></u
-sr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/t
-exlive/2016/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on OS_project1_report.pdf (2 pages, 66301 bytes).
+s/cm/cmmi10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmsy10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmb8a
+.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></us
+r/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/te
+xlive/2016/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on OS_project1_report.pdf (2 pages, 76437 bytes).
 PDF statistics:
- 32 PDF objects out of 1000 (max. 8388607)
- 22 compressed objects within 1 object stream
+ 36 PDF objects out of 1000 (max. 8388607)
+ 25 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
