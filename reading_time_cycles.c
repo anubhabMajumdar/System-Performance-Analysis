@@ -24,23 +24,24 @@ int main(int argc, char* argv[])
     
     FILE* fp;
     fp = fopen("loop_overhead.txt", "a");
-    char buffer[100000];
-
-    FILE* inpfp;
-    inpfp = fopen("sampleFile.txt", "r");
+    
+    char *buffer = (char*)malloc(sizeof(char));
+    // FILE* inpfp;
+    // inpfp = fopen("sampleFile.txt", "r");
 
     __cpuid(level, eax, ebx, ecx, edx); // for serializing the instructions
     i = rdtsc();
     
-    fgets(buffer, 100000, (FILE*)inpfp);
-    
+    // fgets(buffer, 100000, (FILE*)inpfp);
+    buffer[0] = 'a';
+
     __cpuid(level, eax, ebx, ecx, edx); // for serializing the instructions
   	f = rdtsc();
     
     fprintf(fp, "%d\n", (f-i));
     fclose(fp);
 
-    fclose(inpfp);
+    // fclose(inpfp);
 
     // printf("%" PRIu64 "\n", (f-i));
 }
